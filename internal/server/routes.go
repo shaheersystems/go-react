@@ -20,7 +20,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	r.GET("/", s.HelloWorldHandler)
 
 	r.GET("/health", s.healthHandler)
-
+	r.GET("/message", s.MessageHandler)
 	return r
 }
 
@@ -33,4 +33,10 @@ func (s *Server) HelloWorldHandler(c *gin.Context) {
 
 func (s *Server) healthHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, s.db.Health())
+}
+
+func (s *Server) MessageHandler(c *gin.Context) {
+	resp := make(map[string]string)
+	resp["message"] = "this is message"
+	c.JSON(http.StatusOK, resp)
 }
